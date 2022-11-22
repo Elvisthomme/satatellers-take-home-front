@@ -4,7 +4,7 @@ import type { ColumnsType, TableProps } from "antd/es/table";
 import { PatientAppointment } from "../model/patientAppointment";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 import { fetchPatientAppointments } from "../features/patient-appointment/patientAppointmentSlice";
-import { geekblue, gold, red } from "@ant-design/colors";
+import { geekblue, gold, green, red } from "@ant-design/colors";
 import { BugOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -98,6 +98,7 @@ const columns: ColumnsType<PatientAppointment> = [
       { text: "rescheduled", value: "rescheduled" },
       { text: "passed", value: "passed" },
       { text: "missed", value: "missed" },
+      { text: "pending", value: "pending" },
     ],
     onFilter: (value: string | number | boolean, record) => {
       switch (value) {
@@ -107,6 +108,8 @@ const columns: ColumnsType<PatientAppointment> = [
           return record.appointmentStatus === "passed";
         case "missed":
           return record.appointmentStatus === "missed";
+        case "pending":
+          return record.appointmentStatus === "i";
         default:
           return false;
       }
@@ -139,6 +142,18 @@ const columns: ColumnsType<PatientAppointment> = [
               </Tag>
             </>
           );
+        case "pending":
+          return (
+            <>
+              <Tag
+                color={green[2]}
+                style={{ color: green[5] }}
+                key={appointmentStatus}
+              >
+                '{appointmentStatus}'
+              </Tag>
+            </>
+          );
 
         default:
           return (
@@ -157,7 +172,6 @@ const columns: ColumnsType<PatientAppointment> = [
   },
   {
     title: "Action",
-    fixed: "right",
     width: 100,
     render: (_, appointment) => (
       <Link to={`edit-appointment/${appointment.id}`}>edit</Link>

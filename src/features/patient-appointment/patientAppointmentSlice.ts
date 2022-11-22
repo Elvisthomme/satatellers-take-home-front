@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { PatientAppointment } from "../../model/patientAppointment";
 
-const baseUrl = "http://localhost:8000/api/patient-appointment";
+// const baseUrl = "http://localhost:8000/api/patient-appointment";
+const baseUrl = "https://git.heroku.com/satatellers-take-home-back.git";
 
 interface PatientAppointmentState {
   isFetchingAppointment: boolean;

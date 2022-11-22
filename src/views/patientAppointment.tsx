@@ -30,6 +30,7 @@ const CDPatientAppointment: FC = () => {
   const patientAppointment = patientAppointmentData?.data?.find(
     (value) => value.id.toString() === id
   );
+  console.log(patientAppointment);
   const onFinish = (values: any) => {
     if (patientAppointment) {
       patientAppointment.patientName = values.patientName;
