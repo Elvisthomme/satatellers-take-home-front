@@ -1,4 +1,3 @@
-import { blue, red } from "@ant-design/colors";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
   Button,
@@ -30,7 +29,9 @@ const CDPatientAppointment: FC = () => {
   const patientAppointment = patientAppointmentData?.data?.find(
     (value) => value.id.toString() === id
   );
+  console.log(patientAppointmentData?.data);
   console.log(patientAppointment);
+  console.log(id);
   const onFinish = (values: any) => {
     if (patientAppointment) {
       patientAppointment.patientName = values.patientName;
@@ -63,6 +64,7 @@ const CDPatientAppointment: FC = () => {
           right: "5%",
           zIndex: 1,
           width: "90%",
+          backgroundColor: "#423a38",
           borderBottomLeftRadius: 20,
           height: 50,
           boxShadow: "-2px 2px #888888",
@@ -72,7 +74,7 @@ const CDPatientAppointment: FC = () => {
           style={{
             position: "absolute",
             left: "0",
-            backgroundColor: blue[7],
+            backgroundColor: "#5e92a7",
             borderBottomRightRadius: 50,
             borderBottomLeftRadius: 20,
             width: "70%",
@@ -105,7 +107,7 @@ const CDPatientAppointment: FC = () => {
               <Link
                 to={"/"}
                 style={{
-                  backgroundColor: "#eeeae7",
+                  color: "unset",
                   border: "0",
                 }}
               >
@@ -119,7 +121,7 @@ const CDPatientAppointment: FC = () => {
             </Col>
             <Col span={4}>
               <div style={{ width: 50, marginLeft: "10%", marginTop: 32 }}>
-                <hr style={{ border: `1px solid ${red[5]}` }}></hr>
+                <hr style={{ border: "1px solid #eececf" }}></hr>
               </div>
             </Col>
           </Row>
@@ -174,8 +176,8 @@ const CDPatientAppointment: FC = () => {
                   rules={[{ required: true, message: "Please select gender!" }]}
                 >
                   <Select placeholder="select patient gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <Select.Option value="male">Male</Select.Option>
+                    <Select.Option value="female">Female</Select.Option>
                   </Select>
                 </Form.Item>
               </Col>
@@ -225,8 +227,8 @@ const CDPatientAppointment: FC = () => {
                   required={false}
                 >
                   <Select>
-                    <option value="false">No</option>
-                    <option value="true">yes</option>
+                    <Select.Option value="false">No</Select.Option>
+                    <Select.Option value="true">yes</Select.Option>
                   </Select>
                 </Form.Item>
               </Col>
@@ -246,9 +248,11 @@ const CDPatientAppointment: FC = () => {
                   required={false}
                 >
                   <Select>
-                    <option value="pending">Pending</option>
-                    <option value="rescheduled">Rescheduled</option>
-                    <option value="passed">Passed</option>
+                    <Select.Option value="pending">Pending</Select.Option>
+                    <Select.Option value="rescheduled">
+                      Rescheduled
+                    </Select.Option>
+                    <Select.Option value="passed">Passed</Select.Option>
                   </Select>
                 </Form.Item>
               </Col>
@@ -312,7 +316,7 @@ const CDPatientAppointment: FC = () => {
               <Button
                 style={{
                   marginLeft: "80%",
-                  backgroundColor: red[3],
+                  backgroundColor: "#ec2727",
                   fontWeight: "bold",
                 }}
                 type="primary"

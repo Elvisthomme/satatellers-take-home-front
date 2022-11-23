@@ -4,30 +4,49 @@ import type { ColumnsType, TableProps } from "antd/es/table";
 import { PatientAppointment } from "../model/patientAppointment";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 import { fetchPatientAppointments } from "../features/patient-appointment/patientAppointmentSlice";
-import { geekblue, gold, green, red } from "@ant-design/colors";
-import { BugOutlined } from "@ant-design/icons";
+import { green, red } from "@ant-design/colors";
+import { BugOutlined, PlusOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const columns: ColumnsType<PatientAppointment> = [
   {
     title: "Name",
     dataIndex: "patientName",
+    width: "25%",
     sorter: {
       compare: (a, b) => compareString(a.patientName, b.patientName),
       multiple: 3,
     },
+    render: (_, appointment) => (
+      <Link
+        style={{ color: "unset", fontSize: "12px" }}
+        to={`edit-appointment/${appointment.id}`}
+      >
+        {appointment.patientName}
+      </Link>
+    ),
   },
   {
     title: "Code",
     dataIndex: "uniqueCode",
+    width: "15%",
     sorter: {
       compare: (a, b) => compareString(a.uniqueCode, b.uniqueCode),
       multiple: 3,
     },
+    render: (_, appointment) => (
+      <Link
+        style={{ color: "unset", fontSize: "12px" }}
+        to={`edit-appointment/${appointment.id}`}
+      >
+        {appointment.uniqueCode}
+      </Link>
+    ),
   },
   {
     title: "Age",
     dataIndex: "patientAge",
+    width: "20%",
     sorter: {
       compare: (a, b) => a.patientAge - b.patientAge,
       multiple: 2,
@@ -71,6 +90,7 @@ const columns: ColumnsType<PatientAppointment> = [
   {
     title: "Address",
     dataIndex: "patientAddress",
+    width: "25%",
     sorter: {
       compare: (a, b) =>
         compareString(a.patientAddress ?? "", b.patientAddress ?? ""),
@@ -80,6 +100,7 @@ const columns: ColumnsType<PatientAppointment> = [
   {
     title: "Phone",
     dataIndex: "patientPhone",
+    width: "20%",
     sorter: {
       compare: (a, b) =>
         compareString(a.patientPhone ?? "", b.patientPhone ?? ""),
@@ -89,6 +110,7 @@ const columns: ColumnsType<PatientAppointment> = [
   {
     title: "Status",
     dataIndex: "appointmentStatus",
+    width: "15%",
     sorter: {
       compare: (a, b) =>
         compareString(a.appointmentStatus ?? "", b.appointmentStatus ?? ""),
@@ -121,11 +143,15 @@ const columns: ColumnsType<PatientAppointment> = [
           return (
             <>
               <Tag
-                color={geekblue[2]}
-                style={{ color: geekblue[5] }}
+                style={{
+                  fontWeight: "bold",
+                  border: "none",
+                  color: "#6a8272",
+                  backgroundColor: "#edefee",
+                }}
                 key={appointmentStatus}
               >
-                '{appointmentStatus}'
+                {appointmentStatus}
               </Tag>
             </>
           );
@@ -134,11 +160,15 @@ const columns: ColumnsType<PatientAppointment> = [
           return (
             <>
               <Tag
-                color={red[2]}
-                style={{ color: red[5] }}
+                style={{
+                  fontWeight: "bold",
+                  border: "none",
+                  color: "#db3748",
+                  backgroundColor: "#fdefef",
+                }}
                 key={appointmentStatus}
               >
-                '{appointmentStatus}'
+                {appointmentStatus}
               </Tag>
             </>
           );
@@ -146,11 +176,14 @@ const columns: ColumnsType<PatientAppointment> = [
           return (
             <>
               <Tag
-                color={green[2]}
-                style={{ color: green[5] }}
+                style={{
+                  color: green[5],
+                  backgroundColor: "#edefee",
+                  border: "none",
+                }}
                 key={appointmentStatus}
               >
-                '{appointmentStatus}'
+                {appointmentStatus}
               </Tag>
             </>
           );
@@ -159,23 +192,20 @@ const columns: ColumnsType<PatientAppointment> = [
           return (
             <>
               <Tag
-                color={gold[2]}
-                style={{ color: gold[5] }}
+                style={{
+                  fontWeight: "bold",
+                  border: "none",
+                  color: "#dca04f",
+                  backgroundColor: "#fff4e9",
+                }}
                 key={appointmentStatus}
               >
-                '{appointmentStatus}'
+                {appointmentStatus}
               </Tag>
             </>
           );
       }
     },
-  },
-  {
-    title: "Action",
-    width: 100,
-    render: (_, appointment) => (
-      <Link to={`edit-appointment/${appointment.id}`}>edit</Link>
-    ),
   },
 ];
 
@@ -227,7 +257,24 @@ const PatientAppointmentTable: FC = () => {
       columns={columns}
       dataSource={patientAppointmentData!.data!}
       onChange={onChange}
-      pagination={false}
+      pagination={{
+        pageSize: 10,
+
+        nextIcon: (
+          <Link to={"create-appointment"}>
+            {" "}
+            <PlusOutlined
+              style={{
+                fontSize: "2.5em",
+                boxShadow: "-0.5px 0.5px #888888",
+                color: "white",
+                backgroundColor: "#bc6370",
+                borderRadius: "5px",
+              }}
+            />
+          </Link>
+        ),
+      }}
     />
   );
 };
